@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -8,9 +8,10 @@ dataSources:
     source:
       address: "0xf94509332f98d0Fbf458778923B878F3B0dDB044"
       abi: ZestyNFT
+      startBlock: 8059919
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - Approval
@@ -47,4 +48,42 @@ dataSources:
           handler: handleTransfer
         - event: Unpaused(address)
           handler: handleUnpaused
-      file: ./src/mapping.ts
+      file: ./src/ZestyNFT.ts
+
+  - kind: ethereum/contract
+    name: AuctionHTLC
+    network: rinkeby
+    source:
+      address: "0x3a1cDDFF91FDEEC6990b73BC7f9F9F38075901a7"
+      abi: AuctionHTLC
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - AuctionStart
+        - AuctionSuccess
+        - ContractRefund
+        - ContractSetHashlock
+        - ContractSetShare
+        - ContractStart
+        - ContractWithdraw
+      abis:
+        - name: AuctionHTLC
+          file: ./abis/AuctionHTLC.json
+      eventHandlers:
+        - event: AuctionStart(indexed uint256,indexed address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,bool)
+          handler: handleAuctionStart
+        - event: AuctionSuccess(indexed uint256,indexed address,indexed address,uint256,uint256,uint256,uint256,bool)
+          handler: handleAuctionSuccess
+        - event: ContractRefund(indexed uint256)
+          handler: handleContractRefund
+        - event: ContractSetHashlock(indexed uint256,bytes32,uint32)
+          handler: handleContractSetHashlock
+        - event: ContractSetShare(indexed uint256,string)
+          handler: handleContractSetShare
+        - event: ContractStart(indexed uint256,indexed address,indexed address,uint256,uint256,uint256,uint256)
+          handler: handleContractStart
+        - event: ContractWithdraw(indexed uint256)
+          handler: handleContractWithdraw
+      file: ./src/AuctionHTLC.ts

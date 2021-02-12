@@ -1,6 +1,40 @@
-type ExampleEntity @entity {
+type AdData @entity {
   id: ID!
-  count: BigInt!
-  owner: Bytes! # address
-  approved: Bytes! # address
+  tokenGroup: BigInt!
+  publisher: Bytes!
+  timeCreated: BigInt!
+  timeStart: BigInt!
+  timeEnd: BigInt!
+  location: String!
+  uri: String!
+  timeModified: BigInt! 
+}
+
+type Auction @entity {
+  id: ID!
+  publisher: Bytes!
+  advertiser: Bytes!
+  tokenGroup: BigInt!
+  tokenId: BigInt!
+  startPrice: BigInt!
+  startTime: BigInt!
+  endTime: BigInt!
+  tokenEndTime: BigInt!
+  bidPrice: BigInt!
+  active: Boolean!
+}
+
+type HTLC @entity {
+  id: ID!
+  publisher: Bytes!
+  advertiser: Bytes!
+  tokenGroup: BigInt!
+  tokenId: BigInt!
+  amount: BigInt!
+  hashlock: Bytes!
+  timelock: BigInt!
+  withdrawn: Boolean!
+  refunded: Boolean!
+  shares: [String]!
+  totalShares: BigInt!
 }

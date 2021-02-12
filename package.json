@@ -4,7 +4,8 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ zestymarket/zesty-graph",
+    "deploy:mainnet": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ zestymarket/zesty-graph",
+    "deploy:rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ zestymarket/zesty-graph-rinkeby",
     "create-local": "graph create --node http://localhost:8020/ zestymarket/zesty-graph",
     "remove-local": "graph remove --node http://localhost:8020/ zestymarket/zesty-graph",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 zestymarket/zesty-graph"
