@@ -10,6 +10,13 @@ type AdData @entity {
   timeModified: BigInt! 
 }
 
+type TokenGroup @entity {
+  id: ID!
+  tokenGroup: BigInt!
+  publisher: Bytes!
+  tokenGroupUri: String!
+}
+
 type Auction @entity {
   id: ID!
   publisher: Bytes!

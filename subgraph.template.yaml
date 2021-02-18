@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: ZestyNFT
-    network: mainnet
+    network: {{ network }}
     source:
-      address: "0x6A95780Df3ff6931617A8cF9bEBe2bBd41A0A4a5"
+      address: "{{ zestyNFTAddress }}"
       abi: ZestyNFT
-      startBlock: 1
+      startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -52,11 +52,11 @@ dataSources:
 
   - kind: ethereum/contract
     name: AuctionHTLC
-    network: mainnet
+    network: {{ network }}
     source:
-      address: "0x519C10e593bb99368FBb987aa33bE2C1ec24DDc3"
+      address: "{{ auctionHTLCAddress }}"
       abi: AuctionHTLC
-      startBlock: 1
+      startBlock: {{ startBlock }}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
