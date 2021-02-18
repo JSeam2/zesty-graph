@@ -31,7 +31,7 @@ $ npx hardhat
 $ npx hardhat compile
 ```
 
-1. Set up ganache node. Change the RPC Server to `HTTP://127.0.0.1:8545`. We will default to ganache for now as the hardhat node is not very reliable and weird bugs emerge
+1. [Set up a ganache node](https://www.trufflesuite.com/ganache). Change the RPC Server to `HTTP://127.0.0.1:8545`. We will default to ganache for now as the hardhat node is not very reliable and weird bugs emerge
 
 1. On a different terminal deploy contracts locally take note of the address. Modify the values in `config/local.json`
 ```
