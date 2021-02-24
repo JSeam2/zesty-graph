@@ -1,7 +1,7 @@
 {
-  "network": "mainnet",
-  "zestyNFTAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-  "zestyTokenAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-  "auctionHTLCAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-  "startBlock": 0
+  "network": "rinkeby",
+  "zestyNFTAddress": "0xdd28815879bBeE3787F1E1368e56198f01CD9961",
+  "zestyTokenAddress": "0x777a7F9229A8b00188DfD69fb7C7b278Ef9E9D77",
+  "auctionHTLCAddress": "0xF14Fe24ebcD70b0030d06CD45A7285B2EAc5dbb1",
+  "startBlock": 8131706
 }
