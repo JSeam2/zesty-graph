@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { BigInt, ByteArray } from "@graphprotocol/graph-ts"
 import {
   AuctionHTLC,
   AuctionStart,
@@ -16,12 +16,14 @@ export function handleAuctionStart(event: AuctionStart): void {
 
   entity.id = event.params.auctionId.toString();
   entity.publisher = event.params.publisher;
+  entity.advertiser = ByteArray.fromHexString("0x0");
   entity.tokenGroup = event.params.tokenGroup;
   entity.tokenId = event.params.tokenId;
   entity.startPrice = event.params.startPrice;
-  entity.startTime = event.params.startTime;
-  entity.endTime = event.params.endTime;
-  entity.tokenEndTime = event.params.endTime;
+  entity.timeStart = event.params.timeStart;
+  entity.timeEnd = event.params.timeEnd;
+  entity.timeEndToken = event.params.timeEndToken;
+  entity.bidPrice = BigInt.fromI32(0);
   entity.active = event.params.active;
 
   entity.save();
@@ -46,9 +48,12 @@ export function handleContractStart(event: ContractStart): void {
   entity.tokenGroup = event.params.tokenGroup;
   entity.tokenId = event.params.tokenId;
   entity.amount = event.params.amount;
+  entity.hashlock = ByteArray.fromHexString("0x0");
   entity.timelock = event.params.timelock;
-  entity.refunded = false;
   entity.withdrawn = false;
+  entity.refunded = false;
+  entity.shares = [];
+  entity.totalShares = BigInt.fromI32(0);
 
   entity.save();
 }
@@ -71,7 +76,6 @@ export function handleContractSetHashlock(event: ContractSetHashlock): void {
   entity.id = event.params.contractId.toString();
   entity.hashlock = event.params.hashlock;
   entity.totalShares = event.params.totalShares;
-  entity.shares = [];
 
   entity.save();
 }
