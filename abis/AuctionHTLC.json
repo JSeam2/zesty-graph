@@ -56,19 +56,19 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "startTime",
+        "name": "timeStart",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "endTime",
+        "name": "timeEnd",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "tokenEndTime",
+        "name": "timeEndToken",
         "type": "uint256"
       },
       {
