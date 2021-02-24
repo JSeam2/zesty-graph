@@ -1,0 +1,7 @@
+{
+  "network": "mainnet",
+  "zestyNFTAddress": "0xD00c5F9E0D3CCe52Eba90d73A92f7DF8b0d04067",
+  "zestyTokenAddress": "0xf07451C1476F59c21727cACA20eF46150F8e160b",
+  "auctionHTLCAddress": "0x6537ef5c9a013D4d99e999db2274DFc0402182D0",
+  "startBlock": 1
+}
