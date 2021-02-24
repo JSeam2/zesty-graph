@@ -14,7 +14,7 @@ type TokenGroup @entity {
   id: ID!
   tokenGroup: BigInt!
   publisher: Bytes!
-  tokenGroupUri: String!
+  tokenGroupURI: String!
 }
 
 type Auction @entity {

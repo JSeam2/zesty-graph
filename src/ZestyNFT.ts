@@ -1,4 +1,4 @@
-import { BigInt, store } from "@graphprotocol/graph-ts";
+import { ByteArray, store, crypto } from "@graphprotocol/graph-ts";
 import {
   ZestyNFT,
   Approval,
@@ -6,12 +6,13 @@ import {
   Burn,
   Mint,
   ModifyToken,
+  SetTokenGroupURI,
   OwnershipTransferred,
   Paused,
   Transfer,
   Unpaused
 } from "../generated/ZestyNFT/ZestyNFT";
-import { AdData } from "../generated/schema";
+import { TokenData, TokenGroup } from "../generated/schema";
 
 export function handleApproval(event: Approval): void {}
 
@@ -19,15 +20,11 @@ export function handleApprovalForAll(event: ApprovalForAll): void {}
 
 export function handleBurn(event: Burn): void {
   let id = event.params.id.toString();
-  store.remove("ZestyNFTEntity", id);
+  store.remove("TokenData", id);
 }
 
 export function handleMint(event: Mint): void {
-  let entity = AdData.load(event.transaction.from.toHex());
-
-  if (entity == null) {
-    entity = new AdData(event.transaction.from.toHex());
-  }
+  const entity = new TokenData(event.params.id.toString());
 
   entity.id = event.params.id.toString();
   entity.tokenGroup = event.params.tokenGroup;
@@ -43,7 +40,7 @@ export function handleMint(event: Mint): void {
 }
 
 export function handleModifyToken(event: ModifyToken): void {
-  let entity = AdData.load(event.params.id.toString());
+  const entity = new TokenData(event.params.id.toString());
 
   entity.tokenGroup = event.params.tokenGroup;
   entity.publisher = event.params.publisher;
@@ -57,6 +54,21 @@ export function handleModifyToken(event: ModifyToken): void {
   entity.save();
 }
 
+export function handleSetTokenGroupURI(event: SetTokenGroupURI): void {
+  const tokenGroupHex = event.params.tokenGroup.toHexString();
+  const tokenGroupBA = ByteArray.fromHexString(tokenGroupHex);
+  const hashId = crypto.keccak256(concat(event.params.publisher, tokenGroupBA)).toHexString();
+
+  const entity = new TokenGroup(hashId);
+
+  entity.id = hashId;
+  entity.tokenGroup = event.params.tokenGroup;
+  entity.publisher = event.params.publisher;
+  entity.tokenGroupUri = event.params.tokenGroupURI;
+  
+  entity.save();
+}
+
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
 export function handlePaused(event: Paused): void {}
@@ -64,3 +76,17 @@ export function handlePaused(event: Paused): void {}
 export function handleTransfer(event: Transfer): void {}
 
 export function handleUnpaused(event: Unpaused): void {}
+
+
+// Helper for concatenating two byte arrays
+// Code obtained from @graphprotocol/graph-ts/helper-functions.ts
+function concat(a: ByteArray, b: ByteArray): ByteArray {
+  let out = new Uint8Array(a.length + b.length)
+  for (let i = 0; i < a.length; i++) {
+    out[i] = a[i]
+  }
+  for (let j = 0; j < b.length; j++) {
+    out[a.length + j] = b[j]
+  }
+  return out as ByteArray
+}

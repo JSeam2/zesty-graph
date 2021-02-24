@@ -12,10 +12,7 @@ import {
 import { HTLC, Auction } from "../generated/schema"
 
 export function handleAuctionStart(event: AuctionStart): void {
-  let entity = Auction.load(event.transaction.from.toHex());
-  if (entity == null) {
-    entity = new Auction(event.transaction.from.toHex());
-  }
+  const entity = new Auction(event.params.auctionId.toString());
 
   entity.id = event.params.auctionId.toString();
   entity.publisher = event.params.publisher;
@@ -27,31 +24,21 @@ export function handleAuctionStart(event: AuctionStart): void {
   entity.tokenEndTime = event.params.endTime;
   entity.active = event.params.active;
 
-  entity.save()
+  entity.save();
 }
 
 export function handleAuctionSuccess(event: AuctionSuccess): void {
-  let entity = Auction.load(event.transaction.from.toHex());
-  if (entity == null) {
-    entity = new Auction(event.transaction.from.toHex());
-  }
+  const entity = new Auction(event.params.auctionId.toString());
 
-  entity.id = event.params.auctionId.toString();
-  entity.publisher = event.params.publisher;
   entity.advertiser = event.params.advertiser;
-  entity.tokenGroup = event.params.tokenGroup;
-  entity.tokenId = event.params.tokenId;
   entity.bidPrice = event.params.bidPrice;
   entity.active = event.params.active;
 
-  entity.save()
+  entity.save();
 }
 
 export function handleContractStart(event: ContractStart): void {
-  let entity = HTLC.load(event.transaction.from.toHex());
-  if (entity == null) {
-    entity = new HTLC(event.transaction.from.toHex());
-  }
+  const entity = new HTLC(event.params.contractId.toString());
 
   entity.id = event.params.contractId.toString();
   entity.publisher = event.params.publisher;
@@ -63,54 +50,43 @@ export function handleContractStart(event: ContractStart): void {
   entity.refunded = false;
   entity.withdrawn = false;
 
-  entity.save()
+  entity.save();
 }
 
 export function handleContractRefund(event: ContractRefund): void {
-  let entity = HTLC.load(event.transaction.from.toHex());
-  if (entity == null) {
-    entity = new HTLC(event.transaction.from.toHex());
-  }
-
-  entity.id = event.params.contractId.toString();
+  const entity = new HTLC(event.params.contractId.toString());
   entity.refunded = true;
-
-  entity.save()
+  entity.save();
 }
 
 export function handleContractWithdraw(event: ContractWithdraw): void {
-  let entity = HTLC.load(event.transaction.from.toHex());
-  if (entity == null) {
-    entity = new HTLC(event.transaction.from.toHex());
-  }
-
-  entity.id = event.params.contractId.toString();
+  const entity = new HTLC(event.params.contractId.toString());
   entity.withdrawn = true;
-
-  entity.save()
+  entity.save();
 }
 
 export function handleContractSetHashlock(event: ContractSetHashlock): void {
-  let entity = HTLC.load(event.transaction.from.toHex());
-  if (entity == null) {
-    entity = new HTLC(event.transaction.from.toHex());
-  }
+  const entity = new HTLC(event.params.contractId.toString());
 
   entity.id = event.params.contractId.toString();
   entity.hashlock = event.params.hashlock;
   entity.totalShares = event.params.totalShares;
+  entity.shares = [];
 
-  entity.save()
+  entity.save();
 }
 
 export function handleContractSetShare(event: ContractSetShare): void {
-  let entity = HTLC.load(event.transaction.from.toHex());
+  const entity = HTLC.load(event.params.contractId.toString());
 
   if (entity.shares === [] || entity.shares.length === 0) {
     entity.shares = [event.params.share];
   } else {
-    entity.shares.push(event.params.share);
+    let shares = entity.shares;
+    shares.push(event.params.share);
+    entity.shares = shares;
   }
+  entity.save();
 }
 
 
