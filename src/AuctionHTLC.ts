@@ -12,7 +12,7 @@ import {
 import { HTLC, Auction } from "../generated/schema"
 
 export function handleAuctionStart(event: AuctionStart): void {
-  const entity = new Auction(event.params.auctionId.toString());
+  let entity = new Auction(event.params.auctionId.toString());
 
   entity.id = event.params.auctionId.toString();
   entity.publisher = event.params.publisher;
@@ -28,7 +28,7 @@ export function handleAuctionStart(event: AuctionStart): void {
 }
 
 export function handleAuctionSuccess(event: AuctionSuccess): void {
-  const entity = new Auction(event.params.auctionId.toString());
+  let entity = new Auction(event.params.auctionId.toString());
 
   entity.advertiser = event.params.advertiser;
   entity.bidPrice = event.params.bidPrice;
@@ -38,7 +38,7 @@ export function handleAuctionSuccess(event: AuctionSuccess): void {
 }
 
 export function handleContractStart(event: ContractStart): void {
-  const entity = new HTLC(event.params.contractId.toString());
+  let entity = new HTLC(event.params.contractId.toString());
 
   entity.id = event.params.contractId.toString();
   entity.publisher = event.params.publisher;
@@ -54,19 +54,19 @@ export function handleContractStart(event: ContractStart): void {
 }
 
 export function handleContractRefund(event: ContractRefund): void {
-  const entity = new HTLC(event.params.contractId.toString());
+  let entity = new HTLC(event.params.contractId.toString());
   entity.refunded = true;
   entity.save();
 }
 
 export function handleContractWithdraw(event: ContractWithdraw): void {
-  const entity = new HTLC(event.params.contractId.toString());
+  let entity = new HTLC(event.params.contractId.toString());
   entity.withdrawn = true;
   entity.save();
 }
 
 export function handleContractSetHashlock(event: ContractSetHashlock): void {
-  const entity = new HTLC(event.params.contractId.toString());
+  let entity = new HTLC(event.params.contractId.toString());
 
   entity.id = event.params.contractId.toString();
   entity.hashlock = event.params.hashlock;
@@ -77,7 +77,7 @@ export function handleContractSetHashlock(event: ContractSetHashlock): void {
 }
 
 export function handleContractSetShare(event: ContractSetShare): void {
-  const entity = HTLC.load(event.params.contractId.toString());
+  let entity = HTLC.load(event.params.contractId.toString());
 
   if (entity.shares === [] || entity.shares.length === 0) {
     entity.shares = [event.params.share];

@@ -24,7 +24,7 @@ export function handleBurn(event: Burn): void {
 }
 
 export function handleMint(event: Mint): void {
-  const entity = new TokenData(event.params.id.toString());
+  let entity = new TokenData(event.params.id.toString());
 
   entity.id = event.params.id.toString();
   entity.tokenGroup = event.params.tokenGroup;
@@ -40,7 +40,7 @@ export function handleMint(event: Mint): void {
 }
 
 export function handleModifyToken(event: ModifyToken): void {
-  const entity = new TokenData(event.params.id.toString());
+  let entity = new TokenData(event.params.id.toString());
 
   entity.tokenGroup = event.params.tokenGroup;
   entity.publisher = event.params.publisher;
@@ -55,11 +55,11 @@ export function handleModifyToken(event: ModifyToken): void {
 }
 
 export function handleSetTokenGroupURI(event: SetTokenGroupURI): void {
-  const tokenGroupHex = event.params.tokenGroup.toHexString();
-  const tokenGroupBA = ByteArray.fromHexString(tokenGroupHex);
-  const hashId = crypto.keccak256(concat(event.params.publisher, tokenGroupBA)).toHexString();
+  let tokenGroupHex = event.params.tokenGroup.toHexString();
+  let tokenGroupBA = ByteArray.fromHexString(tokenGroupHex);
+  let hashId = crypto.keccak256(concat(event.params.publisher, tokenGroupBA)).toHexString();
 
-  const entity = new TokenGroup(hashId);
+  let entity = new TokenGroup(hashId);
 
   entity.id = hashId;
   entity.tokenGroup = event.params.tokenGroup;
