@@ -64,7 +64,7 @@ export function handleSetTokenGroupURI(event: SetTokenGroupURI): void {
   entity.id = hashId;
   entity.tokenGroup = event.params.tokenGroup;
   entity.publisher = event.params.publisher;
-  entity.tokenGroupUri = event.params.tokenGroupURI;
+  entity.tokenGroupURI = event.params.tokenGroupURI;
   
   entity.save();
 }

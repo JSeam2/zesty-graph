@@ -1,4 +1,4 @@
-import { BigInt, ByteArray } from "@graphprotocol/graph-ts"
+import { BigInt, ByteArray, Bytes } from "@graphprotocol/graph-ts"
 import {
   AuctionHTLC,
   AuctionStart,
@@ -16,7 +16,7 @@ export function handleAuctionStart(event: AuctionStart): void {
 
   entity.id = event.params.auctionId.toString();
   entity.publisher = event.params.publisher;
-  entity.advertiser = ByteArray.fromHexString("0x0");
+  entity.advertiser = new Bytes(0);
   entity.tokenGroup = event.params.tokenGroup;
   entity.tokenId = event.params.tokenId;
   entity.startPrice = event.params.startPrice;
@@ -48,7 +48,7 @@ export function handleContractStart(event: ContractStart): void {
   entity.tokenGroup = event.params.tokenGroup;
   entity.tokenId = event.params.tokenId;
   entity.amount = event.params.amount;
-  entity.hashlock = ByteArray.fromHexString("0x0");
+  entity.hashlock = new Bytes(0);
   entity.timelock = event.params.timelock;
   entity.withdrawn = false;
   entity.refunded = false;
