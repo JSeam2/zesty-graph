@@ -1,4 +1,4 @@
-type AdData @entity {
+type TokenData @entity {
   id: ID!
   tokenGroup: BigInt!
   publisher: Bytes!
@@ -24,9 +24,9 @@ type Auction @entity {
   tokenGroup: BigInt!
   tokenId: BigInt!
   startPrice: BigInt!
-  startTime: BigInt!
-  endTime: BigInt!
-  tokenEndTime: BigInt!
+  timeStart: BigInt!
+  timeEnd: BigInt!
+  timeEndToken: BigInt!
   bidPrice: BigInt!
   active: Boolean!
 }
