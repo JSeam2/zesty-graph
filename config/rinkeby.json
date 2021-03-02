@@ -1,7 +1,7 @@
 {
   "network": "rinkeby",
-  "zestyNFTAddress": "0x52D8Bc5F3C6d882c6Fa72FB228FEbAaE0B916292",
-  "zestyTokenAddress": "0xd0A84d783870fC833CC806f4ba55Ab9D43a96895",
-  "auctionHTLCAddress": "0xEf5621DCcAF578077628eA2CF8febe4e86ab6C88",
-  "startBlock": 8131966
+  "zestyNFTAddress": "0xacDB8C4A61cC983715BFecb5a569DAA10af87391",
+  "zestyTokenAddress": "0xD3989cbE60bf1da87b2c249c262216d185386E37",
+  "auctionHTLCAddress": "0x65Eef828FF6e773292825bf7C6C2D100cf2a8B5E",
+  "startBlock": 8160264
 }

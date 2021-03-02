@@ -60,21 +60,9 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "tokenGroup",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "publisher",
-        "type": "address"
-      },
-      {
         "indexed": false,
         "internalType": "uint256",
-        "name": "timeModified",
+        "name": "timestamp",
         "type": "uint256"
       }
     ],
@@ -92,15 +80,15 @@
       },
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "tokenGroup",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
         "internalType": "address",
         "name": "publisher",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenGroup",
+        "type": "string"
       },
       {
         "indexed": false,
@@ -123,19 +111,13 @@
       {
         "indexed": false,
         "internalType": "string",
-        "name": "location",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
         "name": "uri",
         "type": "string"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "timeModified",
+        "name": "timestamp",
         "type": "uint256"
       }
     ],
@@ -153,15 +135,15 @@
       },
       {
         "indexed": true,
-        "internalType": "uint256",
-        "name": "tokenGroup",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
         "internalType": "address",
         "name": "publisher",
         "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "tokenGroup",
+        "type": "string"
       },
       {
         "indexed": false,
@@ -184,19 +166,13 @@
       {
         "indexed": false,
         "internalType": "string",
-        "name": "location",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
         "name": "uri",
         "type": "string"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "timeModified",
+        "name": "timestamp",
         "type": "uint256"
       }
     ],
@@ -233,31 +209,6 @@
       }
     ],
     "name": "Paused",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "publisher",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "tokenGroup",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "tokenGroupURI",
-        "type": "string"
-      }
-    ],
-    "name": "SetTokenGroupURI",
     "type": "event"
   },
   {
@@ -348,12 +299,11 @@
     ],
     "name": "getTokenData",
     "outputs": [
-      { "internalType": "uint256", "name": "tokenGroup", "type": "uint256" },
+      { "internalType": "string", "name": "tokenGroup", "type": "string" },
       { "internalType": "address", "name": "publisher", "type": "address" },
       { "internalType": "uint256", "name": "timeCreated", "type": "uint256" },
       { "internalType": "uint256", "name": "timeStart", "type": "uint256" },
       { "internalType": "uint256", "name": "timeEnd", "type": "uint256" },
-      { "internalType": "string", "name": "location", "type": "string" },
       { "internalType": "string", "name": "uri", "type": "string" }
     ],
     "stateMutability": "view",
@@ -373,9 +323,8 @@
     "inputs": [
       { "internalType": "uint256", "name": "_timeStart", "type": "uint256" },
       { "internalType": "uint256", "name": "_timeEnd", "type": "uint256" },
-      { "internalType": "uint256", "name": "_tokenGroup", "type": "uint256" },
       { "internalType": "string", "name": "_uri", "type": "string" },
-      { "internalType": "string", "name": "_location", "type": "string" }
+      { "internalType": "string", "name": "_tokenGroup", "type": "string" }
     ],
     "name": "mint",
     "outputs": [],
@@ -462,19 +411,9 @@
   {
     "inputs": [
       { "internalType": "uint256", "name": "_tokenId", "type": "uint256" },
-      { "internalType": "uint256", "name": "_tokenGroup", "type": "uint256" }
+      { "internalType": "string", "name": "_tokenGroup", "type": "string" }
     ],
     "name": "setTokenGroup",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "_tokenGroup", "type": "uint256" },
-      { "internalType": "string", "name": "_tokenGroupURI", "type": "string" }
-    ],
-    "name": "setTokenGroupURI",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -511,16 +450,6 @@
     ],
     "name": "tokenByIndex",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_publisher", "type": "address" },
-      { "internalType": "uint256", "name": "_tokenGroup", "type": "uint256" }
-    ],
-    "name": "tokenGroupURI",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
     "stateMutability": "view",
     "type": "function"
   },

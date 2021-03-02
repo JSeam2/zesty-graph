@@ -21,7 +21,6 @@ dataSources:
         - ModifyToken
         - OwnershipTransferred
         - Paused
-        - SetTokenGroupURI
         - Transfer
         - Unpaused
       abis:
@@ -32,18 +31,16 @@ dataSources:
           handler: handleApproval
         - event: ApprovalForAll(indexed address,indexed address,bool)
           handler: handleApprovalForAll
-        - event: Burn(indexed uint256,indexed uint256,indexed address,uint256)
+        - event: Burn(indexed uint256,uint256)
           handler: handleBurn
-        - event: Mint(indexed uint256,indexed uint256,indexed address,uint256,uint256,uint256,string,string,uint256)
+        - event: Mint(indexed uint256,indexed address,string,uint256,uint256,uint256,string,uint256)
           handler: handleMint
-        - event: ModifyToken(indexed uint256,indexed uint256,indexed address,uint256,uint256,uint256,string,string,uint256)
+        - event: ModifyToken(indexed uint256,indexed address,string,uint256,uint256,uint256,string,uint256)
           handler: handleModifyToken
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: Paused(address)
           handler: handlePaused
-        - event: SetTokenGroupURI(indexed address,indexed uint256,string)
-          handler: handleSetTokenGroupURI
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
         - event: Unpaused(address)
@@ -62,8 +59,11 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
+        - AuctionCancel
+        - AuctionExpire
         - AuctionStart
         - AuctionSuccess
+        - ContractCancel
         - ContractRefund
         - ContractSetHashlock
         - ContractSetShare
@@ -73,18 +73,24 @@ dataSources:
         - name: AuctionHTLC
           file: ./abis/AuctionHTLC.json
       eventHandlers:
-        - event: AuctionStart(indexed uint256,indexed address,uint256,uint256,uint256,uint256,uint256,uint256,uint256,bool)
+        - event: AuctionCancel(indexed uint256,indexed address,uint256)
+          handler: handleAuctionCancel
+        - event: AuctionExpire(indexed uint256,indexed address,uint256)
+          handler: handleAuctionExpire
+        - event: AuctionStart(indexed uint256,indexed address,string,uint256,uint256,uint256,uint256,uint256,uint256)
           handler: handleAuctionStart
-        - event: AuctionSuccess(indexed uint256,indexed address,indexed address,uint256,uint256,uint256,uint256,bool)
+        - event: AuctionSuccess(indexed uint256,indexed address,indexed address,uint256,uint256)
           handler: handleAuctionSuccess
-        - event: ContractRefund(indexed uint256)
+        - event: ContractCancel(indexed uint256,uint256)
+          handler: handleContractCancel
+        - event: ContractRefund(indexed uint256,uint256)
           handler: handleContractRefund
-        - event: ContractSetHashlock(indexed uint256,bytes32,uint32)
+        - event: ContractSetHashlock(indexed uint256,bytes32,uint32,uint256)
           handler: handleContractSetHashlock
-        - event: ContractSetShare(indexed uint256,string)
+        - event: ContractSetShare(indexed uint256,string,uint256)
           handler: handleContractSetShare
-        - event: ContractStart(indexed uint256,indexed address,indexed address,uint256,uint256,uint256,uint256)
+        - event: ContractStart(indexed uint256,indexed address,indexed address,string,uint256,uint256,uint256,uint256)
           handler: handleContractStart
-        - event: ContractWithdraw(indexed uint256)
+        - event: ContractWithdraw(indexed uint256,uint256)
           handler: handleContractWithdraw
       file: ./src/AuctionHTLC.ts
