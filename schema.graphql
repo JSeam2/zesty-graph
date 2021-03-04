@@ -1,47 +1,40 @@
 type TokenData @entity {
   id: ID!
-  tokenGroup: BigInt!
+  tokenGroup: String!
   publisher: Bytes!
   timeCreated: BigInt!
   timeStart: BigInt!
   timeEnd: BigInt!
-  location: String!
   uri: String!
-  timeModified: BigInt! 
-}
-
-type TokenGroup @entity {
-  id: ID!
-  tokenGroup: BigInt!
-  publisher: Bytes!
-  tokenGroupURI: String!
+  timestamp: BigInt! 
 }
 
 type Auction @entity {
   id: ID!
   publisher: Bytes!
   advertiser: Bytes!
-  tokenGroup: BigInt!
+  tokenGroup: String!
   tokenId: BigInt!
   startPrice: BigInt!
   timeStart: BigInt!
   timeEnd: BigInt!
   timeEndToken: BigInt!
   bidPrice: BigInt!
-  active: Boolean!
+  state: String!
+  timestamp: BigInt!
 }
 
 type HTLC @entity {
   id: ID!
   publisher: Bytes!
   advertiser: Bytes!
-  tokenGroup: BigInt!
+  tokenGroup: String!
   tokenId: BigInt!
   amount: BigInt!
   hashlock: Bytes!
   timelock: BigInt!
-  withdrawn: Boolean!
-  refunded: Boolean!
   shares: [String]!
   totalShares: BigInt!
+  state: String!
+  timestamp: BigInt!
 }

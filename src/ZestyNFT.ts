@@ -6,13 +6,12 @@ import {
   Burn,
   Mint,
   ModifyToken,
-  SetTokenGroupURI,
   OwnershipTransferred,
   Paused,
   Transfer,
   Unpaused
 } from "../generated/ZestyNFT/ZestyNFT";
-import { TokenData, TokenGroup } from "../generated/schema";
+import { TokenData } from "../generated/schema";
 
 export function handleApproval(event: Approval): void {}
 
@@ -32,9 +31,8 @@ export function handleMint(event: Mint): void {
   entity.timeCreated = event.params.timeCreated;
   entity.timeStart = event.params.timeStart;
   entity.timeEnd = event.params.timeEnd;
-  entity.location = event.params.location;
   entity.uri = event.params.uri;
-  entity.timeModified = event.params.timeModified;
+  entity.timestamp = event.params.timestamp;
 
   entity.save();
 }
@@ -47,27 +45,12 @@ export function handleModifyToken(event: ModifyToken): void {
   entity.timeCreated = event.params.timeCreated;
   entity.timeStart = event.params.timeStart;
   entity.timeEnd = event.params.timeEnd;
-  entity.location = event.params.location;
   entity.uri = event.params.uri;
-  entity.timeModified = event.params.timeModified;
+  entity.timestamp = event.params.timestamp;
 
   entity.save();
 }
 
-export function handleSetTokenGroupURI(event: SetTokenGroupURI): void {
-  let tokenGroupHex = event.params.tokenGroup.toHexString();
-  let tokenGroupBA = ByteArray.fromHexString(tokenGroupHex);
-  let hashId = crypto.keccak256(concat(event.params.publisher, tokenGroupBA)).toHexString();
-
-  let entity = new TokenGroup(hashId);
-
-  entity.id = hashId;
-  entity.tokenGroup = event.params.tokenGroup;
-  entity.publisher = event.params.publisher;
-  entity.tokenGroupURI = event.params.tokenGroupURI;
-  
-  entity.save();
-}
 
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
@@ -76,17 +59,3 @@ export function handlePaused(event: Paused): void {}
 export function handleTransfer(event: Transfer): void {}
 
 export function handleUnpaused(event: Unpaused): void {}
-
-
-// Helper for concatenating two byte arrays
-// Code obtained from @graphprotocol/graph-ts/helper-functions.ts
-function concat(a: ByteArray, b: ByteArray): ByteArray {
-  let out = new Uint8Array(a.length + b.length)
-  for (let i = 0; i < a.length; i++) {
-    out[i] = a[i]
-  }
-  for (let j = 0; j < b.length; j++) {
-    out[a.length + j] = b[j]
-  }
-  return out as ByteArray
-}
