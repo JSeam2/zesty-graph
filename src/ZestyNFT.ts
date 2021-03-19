@@ -28,6 +28,7 @@ export function handleMint(event: Mint): void {
   entity.id = event.params.id.toString();
   entity.tokenGroup = event.params.tokenGroup;
   entity.publisher = event.params.publisher;
+  entity.owner = event.params.publisher;
   entity.timeCreated = event.params.timeCreated;
   entity.timeStart = event.params.timeStart;
   entity.timeEnd = event.params.timeEnd;
@@ -51,11 +52,15 @@ export function handleModifyToken(event: ModifyToken): void {
   entity.save();
 }
 
-
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
-export function handlePaused(event: Paused): void {}
+export function handleTransfer(event: Transfer): void {
+  let entity = new TokenData(event.params.tokenId.toString());
+  entity.owner = event.params.to;
 
-export function handleTransfer(event: Transfer): void {}
+  entity.save()
+}
+
+export function handlePaused(event: Paused): void {}
 
 export function handleUnpaused(event: Unpaused): void {}

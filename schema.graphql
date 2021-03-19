@@ -2,6 +2,7 @@ type TokenData @entity {
   id: ID!
   tokenGroup: String!
   publisher: Bytes!
+  owner: Bytes!
   timeCreated: BigInt!
   timeStart: BigInt!
   timeEnd: BigInt!
