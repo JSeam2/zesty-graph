@@ -58,7 +58,7 @@ export function handleTransfer(event: Transfer): void {
   let entity = new TokenData(event.params.tokenId.toString());
   entity.owner = event.params.to;
 
-  entity.save()
+  entity.save();
 }
 
 export function handlePaused(event: Paused): void {}
