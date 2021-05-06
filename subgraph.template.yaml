@@ -94,3 +94,30 @@ dataSources:
         - event: ContractWithdraw(indexed uint256,uint256)
           handler: handleContractWithdraw
       file: ./src/AuctionHTLC.ts
+
+  - kind: ethereum/contract
+    name: StreamGame_ETH
+    network: rinkeby
+    source:
+      address: "{{ streamGame_ETHAddress }}"
+      abi: StreamGame_ETH
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - GameStateNew
+        - GameStateUpdate
+        - GameStateWithdraw
+      abis:
+        - name: StreamGame_ETH
+          file: ./abis/StreamGame_ETH.json
+      eventHandlers:
+        - event: GameStateNew(indexed uint256,indexed address,uint256)
+          handler: handleGameStateNew
+        - event: GameStateUpdate(indexed uint256,indexed address,indexed address,string,uint256,uint256)
+          handler: handleGameStateUpdate
+        - event: GameStateWithdraw(indexed uint256,indexed address,uint256)
+          handler: handleGameStateWithdraw
+      file: ./src/StreamGame_ETH.ts
